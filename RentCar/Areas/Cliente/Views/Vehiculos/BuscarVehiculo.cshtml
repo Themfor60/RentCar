@@ -1,0 +1,57 @@
+﻿@model List<RentCar.Models.VehicleInfo>
+
+@{
+    ViewData["Title"] = "Buscar Vehículo";
+}
+
+<h2>Buscar Vehículo</h2>
+
+<form asp-action="BuscarVehiculo" method="post">
+    <label>Marca:</label>
+    <input type="text" name="marca" />
+    <label>Modelo:</label>
+    <input type="text" name="modelo" />
+    <button type="submit">Buscar</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red;">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <h3>Resultado:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Transmisión</th>
+                <th>Combustible</th>
+                <th>Cilindros</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                <tr>
+                    <td>@v.Make</td>
+                    <td>@v.Model</td>
+                    <td>@v.Year</td>
+                    <td>@v.Transmission</td>
+                    <td>@v.Fuel_type</td>
+                    <td>@v.Cylinders</td>
+                </tr>
+            }
+        </tbody>
+    </table
+
+    <a asp-action="Index" asp-controller="Home" class="btn btn-success btn-sm">Volver</a>
+}

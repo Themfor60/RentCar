@@ -15,6 +15,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+//Integracion del servicio de vehiculo
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+
+//integracion de la unidad de trabajo
 //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();

@@ -13,16 +13,46 @@ namespace RentCar.Areas.Cliente.Controllers
         {
             _logger = logger;
         }
-
+       //controlador del index
         public IActionResult Index()
         {
             return View();
         }
 
+
+
+        //controlador del About
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
+
+        //controlador del Contact
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+
+
+        //controlador de las secciones o catalogo de vehiculos
+        public IActionResult Vehicles()
+        {
+            return View("~/Areas/Cliente/Views/Vehiculos/vehicles.cshtml");
+
+        }
+
+
+
+
         public IActionResult Privacy()
         {
             return View();
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
