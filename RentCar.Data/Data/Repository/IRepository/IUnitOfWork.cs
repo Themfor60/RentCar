@@ -8,6 +8,6 @@ namespace RentCar.Data.Data.Repository.IRepository
 {
     public interface IUnitOfWork: IDisposable
     {
-        
+        Task SaveAsync();
     }
 }

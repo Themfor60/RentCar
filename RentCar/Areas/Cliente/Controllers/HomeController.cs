@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RentCar.Data;
 using RentCar.Models;
 using System.Diagnostics;
 
@@ -7,16 +8,23 @@ namespace RentCar.Areas.Cliente.Controllers
     [Area("Cliente")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            // Simulación de lista de vehículos (esto lo puedes cambiar para cargar desde base de datos)
+            var listaVehiculos = new List<Vehicle>
+            {
+                new Vehicle { Marca = "Toyota", Modelo = "Corolla", Precio = 1000 },
+                new Vehicle { Marca = "Honda", Modelo = "Civic", Precio = 1200 }
+            };
+
+            return View(listaVehiculos);
         }
 
         public IActionResult Privacy()

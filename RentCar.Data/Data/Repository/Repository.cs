@@ -3,63 +3,49 @@ using RentCar.Data.Data.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RentCar.Data.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
+        private readonly DbContext _context;
+        internal DbSet<T> _dbSet;
 
-        // aqui estamos haciendo una Inyección del contexto de la base de datos (ApplicationDbContext)
-        protected readonly ApplicationDbContext _context;
-        protected readonly DbSet<T> _dbSet;
-
-
-        //este es el constructor, para inicializar el dbset 
-        public Repository(ApplicationDbContext context)
+        public Repository(DbContext context)
         {
             _context = context;
-            _dbSet = _context.Set<T>();
+            _dbSet = context.Set<T>();
         }
 
-
-        //Agregar datos
-        public void Add(T Entity)
+        public void Add(T entity)
         {
-            _dbSet.Add(Entity);
+            _dbSet.Add(entity);
         }
 
-        //Metodo de eliminar
-        public async Task Delete(int id)
+        public void Delete(T entity)
         {
-            var entity = await Get(id);
-            if (entity != null)
-            {
-                _dbSet.Remove(entity);
-            }
+            _dbSet.Remove(entity);
         }
 
-        //Metodo de obtener un dato por su id 
-        public async Task <T> Get(int id)
+        public async Task<T> Get(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        //Metodo de tener todos los datos de la tabla
-        public async Task <IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public void Update(T Entity)
+        public void Remove(int id)
         {
-            _dbSet.Update(Entity);
-        }
-
-        void IRepository<T>.Delete(int id)
-        {
-            throw new NotImplementedException();
+            var entity = _dbSet.Find(id);
+            if (entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
         }
     }
 }
