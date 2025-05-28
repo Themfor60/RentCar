@@ -313,3 +313,10 @@ h6,
     background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9)), url(../img/bg-banner.jpg);
     background-attachment: fixed;
 }
+
+.nav-large {
+    font-size: 1.5rem; /* Puedes ajustar a 1.2rem, 18px, etc. */
+}
+
+
+
