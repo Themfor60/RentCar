@@ -1,7 +1,6 @@
-﻿namespace RentCar.lolo
+﻿namespace RentCar.jaja
 {
     public class Class
     {
     }
 }
-kmnm
