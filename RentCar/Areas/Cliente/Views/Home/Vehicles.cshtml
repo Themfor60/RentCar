@@ -1,0 +1,321 @@
+﻿@{
+    ViewData["Title"] = "Vehículos";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <h1>Opciones de Vehículos para rentar</h1>
+            <div class="height30"></div>
+        </div>
+
+           <div class="col-sm-9">
+                <div class="bg-dark p-3 rounded">
+                    <h5 class="text-white mb-3">Filtrar por categoría</h5>
+                    <form id="filtroCategorias">
+                        <div class="form-check text-white">
+                            <input class="form-check-input" type="checkbox" value="autos" id="checkAutos">
+                            <label class="form-check-label" for="checkAutos">
+                                Autos
+                            </label>
+                        </div>
+                        <div class="form-check text-white">
+                            <input class="form-check-input" type="checkbox" value="suvs" id="checkSUVs">
+                            <label class="form-check-label" for="checkSUVs">
+                                SUVs
+                            </label>
+                        </div>
+                        <div class="form-check text-white">
+                            <input class="form-check-input" type="checkbox" value="pickups" id="checkPickups">
+                            <label class="form-check-label" for="checkPickups">
+                                Pickups
+                            </label>
+                        </div>
+                        <div class="form-check text-white">
+                            <input class="form-check-input" type="checkbox" value="van-pasajeros" id="checkVanPasajeros">
+                            <label class="form-check-label" for="checkVanPasajeros">
+                                Van de Pasajeros
+                            </label>
+                        </div>
+                        <div class="form-check text-white">
+                            <input class="form-check-input" type="checkbox" value="van-carga" id="checkVanCarga">
+                            <label class="form-check-label" for="checkVanCarga">
+                                Van de Carga
+                            </label>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm mt-3" onclick="filtrarVehiculos()">Aplicar Filtro</button>
+                    </form>
+                </div>
+            
+             </div>
+
+
+        <div class="col-sm-9">
+            <h4 class="white cborde">21 Vehículos encontrados</h4>
+            <div class="height30"></div>
+
+            <div class="container mt-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+
+                    <!-- carro 1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm " data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- carro 2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="SUV Mediano">
+                                <div class="card-body">
+                                    <h5 class="card-title">SUV Mediano</h5>
+                                    <p class="card-text">Suzuki S-Cross o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase"></i> 1 grande, 2 medianas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- carro 3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="SUV Especial">
+                                <div class="card-body">
+                                    <h5 class="card-title">SUV Especial</h5>
+                                    <p class="card-text">Suzuki Jimny GLX 5 puertas o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 4 Pax.<br>
+                                        <i class="fa-solid fa-suitcase"></i> 2 medianas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- carro 4 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="SUV Híbrido Estándar">
+                                <div class="card-body">
+                                    <h5 class="card-title">SUV Híbrido Estándar</h5>
+                                    <p class="card-text">Suzuki Vitara o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 medianas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- carro 5 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                   <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- carro 6 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                   <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- carro 7 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- carro 8 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <!-- carro 9 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div
+
+
+                     <!-- carro 10-->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                    <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                     <!-- carro 11 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm" data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                   <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                     <!-- carro 12 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm " data-categoria="suvs">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <img src="https://i.postimg.cc/cJV9h3m8/Chevrolet-Spark.png" class="card-img-top" alt="Auto Económico">
+                                <div class="card-body">
+                                    <h5 class="card-title">Auto Económico</h5>
+                                    <p class="card-text">Chevrolet Spark o similar</p>
+                                    <p class="mb-2">
+                                        <i class="fa-solid fa-gear"></i> Automático
+                                    </p>
+                                    <p style="font-size: 14px;">
+                                        <i class="fa-solid fa-user"></i> 5 Pax.<br>
+                                        <i class="fa-solid fa-suitcase-rolling"></i> 2 pequeñas
+                                    </p>
+                                   <a asp-action="AlquilarVehiculo" asp-controller="Home"  class="btn btn-primary mt-2">Reserva Ahora</a>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
