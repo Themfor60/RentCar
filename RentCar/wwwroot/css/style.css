@@ -318,5 +318,16 @@ h6,
     font-size: 1.5rem; /* Puedes ajustar a 1.2rem, 18px, etc. */
 }
 
+.btn-orange {
+    background-color: #F77D0A;
+    border-color: #F77D0A;
+    color: #fff;
+}
+
+.btn-orange:hover {
+    background-color: #e86f00;
+    border-color: #e86f00;
+}
+
 
 
