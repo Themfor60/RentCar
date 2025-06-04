@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
 using RentCar.Data.Data.Repository.IRepository;
+using SendEmail.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddSingleton<WhatsAppService>();
+
 
 //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
