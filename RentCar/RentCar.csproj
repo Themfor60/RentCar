@@ -21,8 +21,4 @@
     <ProjectReference Include="..\RentCar.Data\RentCar.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-  </ItemGroup>
-
 </Project>

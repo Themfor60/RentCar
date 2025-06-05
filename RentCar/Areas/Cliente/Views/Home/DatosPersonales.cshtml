@@ -1,7 +1,7 @@
 ﻿@model RentCar.Models.RentaFormularioViewModel
 
 @{
-    ViewData["Title"] = "Reservaciones";
+    ViewData["Title"] = "Datos Personales";
 }
 
 <div class="row justify-content-center mt-4">
@@ -11,26 +11,56 @@
                 <h3 class="mb-0">Formulario de Renta</h3>
             </div>
             <div class="card-body">
-                <form asp-controller="Home" asp-area="Cliente" asp-action="DatosPersonales" method="post">
+                <!-- Imagen del Vehículo y Nombre -->
+                <div class="text-center mb-4">
+                    <img src="/images/vehiculos/default.jpg" alt="Imagen del Vehículo" class="img-fluid rounded shadow" style="max-height: 300px;">
+                    <h4 class="mt-3">Toyota Corolla 2021</h4>
+                </div>
+
+                <!-- Detalles del Vehículo -->
+                <div class="mb-4">
+                    <h5>Detalles del Vehículo</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">Color: Gris</li>
+                        <li class="list-group-item">Transmisión: Automática</li>
+                        <li class="list-group-item">Año: 2021</li>
+                        <li class="list-group-item">Motor: 1.8L</li>
+                    </ul>
+                </div>
+
+                <form asp-controller="Renta" asp-area="Cliente" asp-action="EnviarConfirmacion" method="post">
+
+                    <!-- Datos Personales -->
+                    <div class="mb-3">
+                        <label for="Nombre" class="form-label">Nombre</label>
+                        <input name="Nombre" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Apellido" class="form-label">Apellido</label>
+                        <input name="Apellido" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Cedula" class="form-label">Número de Cédula</label>
+                        <input name="Cedula" class="form-control" required />
+                    </div>
 
                     <!-- Ciudad o Código Postal -->
                     <div class="mb-3">
                         <label asp-for="CiudadCodigo" class="form-label"></label>
-                        <input asp-for="CiudadCodigo" class="form-control" id="ciudadCodigo" placeholder="Busca tu ciudad o código postal" />
+                        <input asp-for="CiudadCodigo" class="form-control" id="ciudadCodigo" readonly />
                         <span asp-validation-for="CiudadCodigo" class="text-danger"></span>
                     </div>
-
 
                     <!-- Fecha y hora de recogida -->
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="FechaRecogida" class="form-label"></label>
-                            <input asp-for="FechaRecogida" type="date" class="form-control" required />
+                            <input asp-for="FechaRecogida" type="date" class="form-control" readonly />
                             <span asp-validation-for="FechaRecogida" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="HoraRecogida" class="form-label"></label>
-                            <input asp-for="HoraRecogida" type="time" class="form-control" required />
+                            <input asp-for="HoraRecogida" type="time" class="form-control" readonly />
                             <span asp-validation-for="HoraRecogida" class="text-danger"></span>
                         </div>
                     </div>
@@ -39,12 +69,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="FechaEntrega" class="form-label"></label>
-                            <input asp-for="FechaEntrega" type="date" class="form-control" required />
+                            <input asp-for="FechaEntrega" type="date" class="form-control" readonly />
                             <span asp-validation-for="FechaEntrega" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="HoraEntrega" class="form-label"></label>
-                            <input asp-for="HoraEntrega" type="time" class="form-control" required />
+                            <input asp-for="HoraEntrega" type="time" class="form-control" readonly />
                             <span asp-validation-for="HoraEntrega" class="text-danger"></span>
                         </div>
                     </div>
@@ -59,20 +89,19 @@
                     <!-- Email destino -->
                     <div class="mb-3">
                         <label asp-for="EmailDestino" class="form-label"></label>
-                        <input asp-for="EmailDestino" type="email" class="form-control" placeholder="ejemplo@correo.com" required />
+                        <input asp-for="EmailDestino" type="email" class="form-control" readonly />
                         <span asp-validation-for="EmailDestino" class="text-danger"></span>
                     </div>
 
                     <!-- Tripulantes -->
                     <div class="mb-3">
                         <label asp-for="Tripulantes" class="form-label"></label>
-                        <input asp-for="Tripulantes" type="number" class="form-control" min="1" max="10" placeholder="Ej. 4" required />
+                        <input asp-for="Tripulantes" type="number" class="form-control" readonly />
                         <span asp-validation-for="Tripulantes" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" id="btnAlquilar" class="btn btn-success w-100">Buscar Vehículo</button>
+                    <button type="submit" id="btnReservar" class="btn btn-success w-100">Reservar</button>
                 </form>
-                
             </div>
         </div>
     </div>
@@ -84,4 +113,3 @@
         <script src="/js/SwuiAlert.js"></script>
     }
 }
-

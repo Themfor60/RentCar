@@ -25,7 +25,7 @@ namespace RentCar.Models
         [Required]
         public string EmailDestino { get; set; }
 
-        // Clave foránea que referencia a ReservaRequest
+        
         [ForeignKey("ReservaRequest")]
         public int ReservaRequestId { get; set; }
         public virtual ReservaRequest ReservaRequest { get; set; }

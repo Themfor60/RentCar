@@ -19,7 +19,7 @@ namespace RentCar.Models
         public string Vehiculo { get; set; }
         public decimal Precio { get; set; }
 
-        // Puedes agregar una navegación para que EF lo reconozca
+        
         public virtual RentaFormularioViewModel RentaFormulario { get; set; }
     }
 

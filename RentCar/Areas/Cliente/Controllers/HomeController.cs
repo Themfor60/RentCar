@@ -33,10 +33,10 @@ namespace RentCar.Areas.Cliente.Controllers
 
         }
 
-        public IActionResult Vehicles()
+        public ActionResult Vehicles()
         {
-            return View();
-
+            var vehiculos = _context.vehiculos.OrderByDescending(v => v.Id).ToList();
+            return View(vehiculos);
         }
 
         public IActionResult Contact()
@@ -52,6 +52,12 @@ namespace RentCar.Areas.Cliente.Controllers
         }
 
         public IActionResult AlquilarVehiculo()
+        {
+            return View();
+
+        }
+
+        public IActionResult DatosPersonales()
         {
             return View();
 
