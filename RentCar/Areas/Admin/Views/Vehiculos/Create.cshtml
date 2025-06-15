@@ -1,0 +1,73 @@
+﻿@model RentCar.Models.Vehiculo
+
+@{
+    ViewBag.Title = "Agregar Vehículo";
+}
+
+<div class="container py-5">
+    <div class="card shadow-lg border-0 rounded-4 bg-dark text-white">
+        <div class="card-header text-center border-0 rounded-top-4" style="background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);">
+            <h2 class="mb-0">🚗 Agregar Nuevo Vehículo</h2>
+        </div>
+
+        <div class="card-body p-4">
+            @using (Html.BeginForm("Create", "Vehiculos", FormMethod.Post, new
+            {
+                enctype = "multipart/form-data",
+                @class = "needs-validation",
+                novalidate = "novalidate"
+            }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label" for="file">📸 Foto del Vehículo</label>
+                    <input type="file" id="file" name="file" accept="image/*" class="form-control" required />
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="Marca">🚙 Marca</label>
+                        @Html.TextBoxFor(m => m.Marca, new { @class = "form-control", required = "required", id = "Marca" })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="Modelo">📌 Modelo</label>
+                        @Html.TextBoxFor(m => m.Modelo, new { @class = "form-control", required = "required", id = "Modelo" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="Transmision">🔧 Transmisión</label>
+                        @Html.TextBoxFor(m => m.Transmision, new { @class = "form-control", required = "required", id = "Transmision" })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="CapacidadPersonas">👨‍👩‍👧‍👦 Capacidad de Personas</label>
+                        @Html.TextBoxFor(m => m.CapacidadPersonas, new { @class = "form-control", required = "required", type = "number", min = "1", id = "CapacidadPersonas" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="CapacidadMaletero">🧳 Capacidad de Maletas</label>
+                        @Html.TextBoxFor(m => m.CapacidadMaletero, new { @class = "form-control", required = "required", id = "CapacidadMaletero" })
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label" for="Precio">💵 Precio por Día (RD$)</label>
+                        @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", required = "required", type = "number", min = "0", step = "0.01", id = "Precio" })
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill shadow">
+                        💾 Guardar Vehículo
+                    </button>
+                    <a asp-action="Index" asp-controller="Dashboard" class="btn btn-secondary px-4 py-2 rounded-pill shadow ms-2">
+                        🔙 Volver
+                    </a>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>

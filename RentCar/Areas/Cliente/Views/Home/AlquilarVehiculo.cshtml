@@ -1,0 +1,90 @@
+﻿@model RentCar.Models.RentaFormularioViewModel
+
+@{
+    ViewData["Title"] = "Reservaciones";
+}
+
+
+
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10 col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Formulario de Renta</h3>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Home" asp-area="Cliente" asp-action="DatosPersonales" method="post">
+
+                    <!-- Ciudad o Código Postal -->
+                    <div class="mb-3">
+                        <label asp-for="CiudadCodigo" class="form-label"></label>
+                        <input asp-for="CiudadCodigo" class="form-control" id="ciudadCodigo" placeholder="Busca tu ciudad o código postal" />
+                        <span asp-validation-for="CiudadCodigo" class="text-danger"></span>
+                    </div>
+
+
+                    <!-- Fecha y hora de recogida -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FechaRecogida" class="form-label"></label>
+                            <input asp-for="FechaRecogida" type="date" class="form-control" required />
+                            <span asp-validation-for="FechaRecogida" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HoraRecogida" class="form-label"></label>
+                            <input asp-for="HoraRecogida" type="time" class="form-control" required />
+                            <span asp-validation-for="HoraRecogida" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Fecha y hora de entrega -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="FechaEntrega" class="form-label"></label>
+                            <input asp-for="FechaEntrega" type="date" class="form-control" required />
+                            <span asp-validation-for="FechaEntrega" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HoraEntrega" class="form-label"></label>
+                            <input asp-for="HoraEntrega" type="time" class="form-control" required />
+                            <span asp-validation-for="HoraEntrega" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Fecha de nacimiento del conductor -->
+                    <div class="mb-3">
+                        <label asp-for="FechaNacimiento" class="form-label"></label>
+                        <input asp-for="FechaNacimiento" type="date" class="form-control" required />
+                        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email destino -->
+                    <div class="mb-3">
+                        <label asp-for="EmailDestino" class="form-label"></label>
+                        <input asp-for="EmailDestino" type="email" class="form-control" placeholder="ejemplo@correo.com" required />
+                        <span asp-validation-for="EmailDestino" class="text-danger"></span>
+                    </div>
+
+                    <!-- Tripulantes -->
+                    <div class="mb-3">
+                        <label asp-for="Tripulantes" class="form-label"></label>
+                        <input asp-for="Tripulantes" type="number" class="form-control" min="1" max="10" placeholder="Ej. 4" required />
+                        <span asp-validation-for="Tripulantes" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" id="btnAlquilar" class="btn btn-success w-100">Buscar Vehículo</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        <script src="/js/SwuiAlert.js"></script>
+    }
+}
+
