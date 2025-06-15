@@ -25,7 +25,7 @@ public class WhatsAppService
             Nombre: {request.Nombre}
             Email: {request.EmailCliente}
             Teléfono: {request.Telefono}
-            Vehículo: {request.Vehiculo}
+            Vehículo:
             Recogida: {request.RentaFormulario.FechaRecogida:yyyy-MM-dd} a las {request.RentaFormulario.HoraRecogida}
             Entrega: {request.RentaFormulario.FechaEntrega:yyyy-MM-dd} a las {request.RentaFormulario.HoraEntrega}
             Dirección: {request.RentaFormulario.CiudadCodigo}

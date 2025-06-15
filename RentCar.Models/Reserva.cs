@@ -16,10 +16,11 @@ namespace RentCar.Models
         public string Apellido { get; set; }
         public string EmailCliente { get; set; }
         public string Telefono { get; set; }
-        public string Vehiculo { get; set; }
-        public decimal Precio { get; set; }
-
+        public string Cedula { get; set; }
         
+
+
+
         public virtual RentaFormularioViewModel RentaFormulario { get; set; }
     }
 

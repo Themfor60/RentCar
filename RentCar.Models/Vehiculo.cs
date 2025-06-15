@@ -15,7 +15,10 @@ namespace RentCar.Models
         public int CapacidadPersonas { get; set; }
         public string? CapacidadMaletero { get; set; }
         public decimal Precio { get; set; } 
+
+
         public byte[]? Foto { get; set; }
+
 
     }
 }
