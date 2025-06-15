@@ -18,18 +18,31 @@ else
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var item in Model)
         {
+            string? base64 = null;
+            if (item.Foto != null)
+            {
+                base64 = Convert.ToBase64String(item.Foto);
+            }
             <div class="col">
                 <div class="card h-100 shadow-lg border-0 rounded-4">
-                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Foto)" class="card-img-top" alt="@item.Modelo" style="height: 200px; object-fit: cover;" />
+                    @if (base64 != null)
+                    {
+                        <img src="data:image/jpeg;base64,@base64" class="card-img-top" alt="@item.Modelo" style="height: 200px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="~/images/No_image_available.svg" alt="Imagen no disponible" style="height: 200px; object-fit: cover;" />
+                    }
+
                     <div class="card-body bg-light rounded-bottom-4">
                         <h5 class="card-title">@item.Marca @item.Modelo</h5>
                         <p class="card-text">
                             <i class="fas fa-cogs text-info"></i> Transmisión: @item.Transmision <br />
                             <i class="fas fa-suitcase text-warning"></i> Maletero: @item.CapacidadMaletero <br />
                             <i class="fas fa-user-friends text-success"></i> Personas: @item.CapacidadPersonas <br />
-                            <i class="fas fa-dollar-sign text-primary"></i> Precio por día: <strong>@item.Precio.ToString("C")</strong>
+                            <i class="fas fa-dollar-sign text-primary"></i> Precio por día: <strong>$@item.Precio.ToString("N2")</strong>
                         </p>
-                        <a href="@Url.Action("Alquilar", "Vehiculos", new { id = item.Id })" class="btn btn-primary w-100 rounded-pill shadow-sm">
+                        <a asp-action="DatosPersonales" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-primary w-100 rounded-pill shadow-sm">
                             <i class="fas fa-car"></i> Alquilar ahora
                         </a>
                     </div>

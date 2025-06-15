@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
 using RentCar.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace RentCar.Areas.Admin.Controllers
 {
@@ -23,9 +23,10 @@ namespace RentCar.Areas.Admin.Controllers
             return View();
         }
 
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Vehiculo vehiculo, IFormFile file)
+        public async Task<IActionResult> Create(Vehiculo vehiculo, IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -33,14 +34,20 @@ namespace RentCar.Areas.Admin.Controllers
                 {
                     using (var ms = new MemoryStream())
                     {
-                        file.CopyTo(ms);
-                        vehiculo.Foto = ms.ToArray(); 
+                        await file.CopyToAsync(ms);
+                        vehiculo.Foto = ms.ToArray();
                     }
+                }
+                else
+                {
+                   
+                    vehiculo.Foto = null; 
                 }
 
                 _context.vehiculos.Add(vehiculo);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Vehicles", "Home", new { area = "Cliente" });
             }
 
             return View(vehiculo);
