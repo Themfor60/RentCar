@@ -32,7 +32,7 @@ namespace RentCar.Areas.Admin.Controllers
                 return RedirectToAction("Dashboard");
             }
 
-            // Si algo falla, recarga la vista con errores
+            
             var vehiculos = _context.vehiculos.ToList();
             return View("Dashboard", vehiculos);
         }
