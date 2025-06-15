@@ -35,7 +35,7 @@ namespace RentCar.Areas.Cliente.Controllers
 
         public ActionResult Vehicles()
         {
-            var vehiculos = _context.vehiculos.OrderByDescending(v => v.Id).ToList();
+            var vehiculos = _context.vehiculos.ToList();
             return View(vehiculos);
         }
 
