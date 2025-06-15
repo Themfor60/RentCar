@@ -21,4 +21,8 @@
     <ProjectReference Include="..\RentCar.Models\RentCar.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="prueba\" />
+  </ItemGroup>
+
 </Project>

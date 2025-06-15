@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using RentCar.Data;
 using RentCar.Models;
 using System.Diagnostics;
@@ -16,39 +16,35 @@ namespace RentCar.Areas.Cliente.Controllers
             _context = context;
         }
 
-        // Controladores de las vistas
-
+       
         public IActionResult Index()
         {
             return View();
         }
 
+        
         public IActionResult About()
         {
             return View();
         }
 
+       
         public IActionResult Vehicles()
         {
+            
             var vehiculos = _context.vehiculos.ToList();
             return View(vehiculos);
+
+           
         }
 
+        
         public IActionResult Contact()
         {
             return View();
         }
 
-        public IActionResult Travels()
-        {
-            return View();
-        }
-
-        public IActionResult AlquilarVehiculo()
-        {
-            return View();
-        }
-
+        
         [HttpGet]
         public IActionResult DatosPersonales(int id)
         {
@@ -64,6 +60,7 @@ namespace RentCar.Areas.Cliente.Controllers
             return View(viewModel);
         }
 
+        
         [HttpPost]
         public IActionResult DatosPersonales(RentaFormularioViewModel model)
         {
@@ -87,9 +84,6 @@ namespace RentCar.Areas.Cliente.Controllers
 
             return RedirectToAction("Vehicles");
         }
-
-
-
 
         public IActionResult Privacy()
         {
