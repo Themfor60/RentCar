@@ -13,6 +13,12 @@ namespace RentCar.Models
         [Key]
         public int IdRenta { get; set; }
 
+        [NotMapped]
+        public ReservaRequest Request { get; set; } = new ReservaRequest();
+
+        public Vehiculo Vehiculo { get; set; }
+
+
         [Required]
         public string CiudadCodigo { get; set; }
         public DateTime FechaRecogida { get; set; }
@@ -26,9 +32,8 @@ namespace RentCar.Models
         public string EmailDestino { get; set; }
 
         
-        [ForeignKey("ReservaRequest")]
-        public int ReservaRequestId { get; set; }
-        public virtual ReservaRequest ReservaRequest { get; set; }
+        
+        
     }
 
 }

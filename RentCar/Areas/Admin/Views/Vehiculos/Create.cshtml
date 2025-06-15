@@ -16,38 +16,39 @@
                 @Html.AntiForgeryToken()
 
                 <div class="mb-3">
-                    <label class="form-label">Foto del Vehículo</label>
-                    <input type="file" name="file" accept="image/*" class="form-control" required />
+                    <label class="form-label" for="file">Foto del Vehículo</label>
+                    <input type="file" id="file" name="file" accept="image/*" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Marca</label>
-                    @Html.TextBoxFor(m => m.Marca, new { @class = "form-control", required = "required" })
+                    <label class="form-label" for="Marca">Marca</label>
+                    @Html.TextBoxFor(m => m.Marca, new { @class = "form-control", required = "required", id = "Marca" })
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Modelo</label>
-                    @Html.TextBoxFor(m => m.Modelo, new { @class = "form-control", required = "required" })
+                    <label class="form-label" for="Modelo">Modelo</label>
+                    @Html.TextBoxFor(m => m.Modelo, new { @class = "form-control", required = "required", id = "Modelo" })
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Transmisión</label>
-                    @Html.TextBoxFor(m => m.Transmision, new { @class = "form-control", required = "required" })
+                    <label class="form-label" for="Transmision">Transmisión</label>
+                    @Html.TextBoxFor(m => m.Transmision, new { @class = "form-control", required = "required", id = "Transmision" })
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Capacidad de Personas</label>
-                    @Html.TextBoxFor(m => m.CapacidadPersonas, new { @class = "form-control", required = "required", type = "number", min = "1" })
+                    <label class="form-label" for="CapacidadPersonas">Capacidad de Personas</label>
+                    @Html.TextBoxFor(m => m.CapacidadPersonas, new { @class = "form-control", required = "required", type = "number", min = "1", id = "CapacidadPersonas" })
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Capacidad de Maletas</label>
-                    @Html.TextBoxFor(m => m.CapacidadMaletero, new { @class = "form-control", required = "required", type = "number", min = "1" })
+                    <label class="form-label" for="CapacidadMaletero">Capacidad de Maletas</label>
+                    @Html.TextBoxFor(m => m.CapacidadMaletero, new { @class = "form-control", required = "required", id = "CapacidadMaletero" })
+                    
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Precio</label>
-                    @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", required = "required", type = "number", min = "0", step = "0.01" })
+                    <label class="form-label" for="Precio">Precio</label>
+                    @Html.TextBoxFor(m => m.Precio, new { @class = "form-control", required = "required", type = "number", min = "0", step = "0.01", id = "Precio" })
                 </div>
 
                 <div class="text-center mt-4">
