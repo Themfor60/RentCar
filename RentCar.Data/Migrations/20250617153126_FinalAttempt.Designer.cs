@@ -12,8 +12,8 @@ using RentCar.Data;
 namespace RentCar.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250617065408_FinalInitialSetup")]
-    partial class FinalInitialSetup
+    [Migration("20250617153126_FinalAttempt")]
+    partial class FinalAttempt
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,8 +283,7 @@ namespace RentCar.Data.Migrations
                     b.Property<int>("Tripulantes")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehiculoId")
-                        .IsRequired()
+                    b.Property<int>("VehiculoId")
                         .HasColumnType("int");
 
                     b.HasKey("IdReserva");

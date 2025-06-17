@@ -280,8 +280,7 @@ namespace RentCar.Data.Migrations
                     b.Property<int>("Tripulantes")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehiculoId")
-                        .IsRequired()
+                    b.Property<int>("VehiculoId")
                         .HasColumnType("int");
 
                     b.HasKey("IdReserva");

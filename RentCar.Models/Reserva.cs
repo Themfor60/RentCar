@@ -23,7 +23,8 @@ namespace RentCar.Models
         [EmailAddress(ErrorMessage = "El formato del correo electrónico no es válido.")]
         public string EmailCliente { get; set; }
 
-        public string Telefono { get; set; }
+        [Required(ErrorMessage = "El teléfono es obligatorio.")] 
+        public string Telefono { get; set; } 
 
         [Required(ErrorMessage = "La cédula es obligatoria")]
         [RegularExpression(@"^\d{11}$", ErrorMessage = "La cédula debe tener exactamente 11 dígitos")]
@@ -57,10 +58,10 @@ namespace RentCar.Models
         [Range(1, 10, ErrorMessage = "Debes ingresar entre 1 y 10 tripulantes")]
         public int Tripulantes { get; set; }
 
-        [Required(ErrorMessage = "El ID del vehículo es obligatorio.")] 
-        public int? VehiculoId { get; set; } 
+        [Required(ErrorMessage = "El ID del vehículo es obligatorio.")]
+        public int VehiculoId { get; set; }
 
-        [ForeignKey("VehiculoId")] 
+        [ForeignKey("VehiculoId")]
         public virtual Vehiculo Vehiculo { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RentCar.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class FinalInitialSetup : Migration
+    public partial class FinalAttempt : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -13,21 +13,20 @@
             <div class="card-body">
                 <div class="text-center mb-4">
                     @{
-                        
-                        var imagenBase64 = ViewData["VehiculoFoto"] != null
-                        ? $"data:image/jpeg;base64,{ViewData["VehiculoFoto"]}"
+                        // Verifica si Model.Vehiculo y Model.Vehiculo.Foto no son nulos
+                        var imagenBase64 = Model.Vehiculo?.Foto != null
+                        ? $"data:image/jpeg;base64,{Convert.ToBase64String(Model.Vehiculo.Foto)}"
                         : Url.Content("~/images/vehiculos/default.jpg");
                     }
 
                     <img src="@imagenBase64" alt="Imagen del Vehículo" class="img-fluid rounded shadow" style="max-height: 300px;" />
-                    <h4 class="mt-3">@ViewData["VehiculoMarca"] @ViewData["VehiculoModelo"]</h4>
+                    <h4 class="mt-3">@Model.Vehiculo?.Marca @Model.Vehiculo?.Modelo</h4>
                 </div>
 
                 <ul class="list-group mb-4">
-                    
-                    <li class="list-group-item">Transmisión: <strong>@ViewData["Transmision"]</strong></li>
-                    <li class="list-group-item">Capacidad: <strong>@ViewData["CapacidadPersonas"]</strong> personas</li>
-                    <li class="list-group-item">Maletero: <strong>@ViewData["CapacidadMaletero"]</strong> litros</li>
+                    <li class="list-group-item">Transmisión: <strong>@Model.Vehiculo?.Transmision</strong></li>
+                    <li class="list-group-item">Capacidad: <strong>@Model.Vehiculo?.CapacidadPersonas</strong> personas</li>
+                    <li class="list-group-item">Maletero: <strong>@Model.Vehiculo?.CapacidadMaletero</strong> litros</li>
                 </ul>
 
                 
