@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="text-center mb-4">
                     @{
-                        // Verifica si Model.Vehiculo y Model.Vehiculo.Foto no son nulos
+                        
                         var imagenBase64 = Model.Vehiculo?.Foto != null
                         ? $"data:image/jpeg;base64,{Convert.ToBase64String(Model.Vehiculo.Foto)}"
                         : Url.Content("~/images/vehiculos/default.jpg");
@@ -30,7 +30,7 @@
                 </ul>
 
                 
-                <p class="text-info">ID del Vehículo seleccionado: <strong>@Model.VehiculoId</strong></p>
+                
 
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 

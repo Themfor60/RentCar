@@ -1,0 +1,40 @@
+﻿@model RentCar.Models.ReservaRequest
+
+@{
+    ViewData["Title"] = "Detalle del Cliente";
+}
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <h2>Detalle del Cliente</h2>
+
+    
+    <div class="d-flex justify-content-end mb-3">
+        <button onclick="window.print()" class="btn btn-outline-primary">
+            <i class="bi bi-printer"></i> Imprimir
+        </button>
+    </div>
+
+    
+    <div class="card shadow">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Nombre @Model.Apellido</h4>
+            <p><strong>Vehículo:</strong> @Model.Vehiculo.Marca @Model.Vehiculo.Modelo</p>
+            <p><strong>Teléfono:</strong> @Model.Telefono</p>
+            <p><strong>Cédula:</strong> @Model.Cedula</p>
+            <p><strong>Fecha de nacimiento:</strong> @Model.FechaNacimiento</p>
+            <p><strong>Dirrecion:</strong> @Model.CiudadCodigo</p>
+            <p><strong>Fecha de Recogida:</strong> @Model.FechaHoraRecogidaCompleta</p>
+            <p><strong>Fecha de Entrega:</strong> @Model.FechaHoraEntregaCompleta</p>
+        </div>
+    </div>
+
+    
+    <div class="mt-4">
+        <a asp-action="Clientes" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
+</div>

@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<RentCar.Models.Vehiculo>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
 
 @{
     ViewData["Title"] = "Dashboard de Gestión de Vehículos";
@@ -28,6 +31,18 @@
 
                 <i class="bi bi-cash-stack me-2"></i> Finanzas
             </a>
+            
+
+
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperUsuario"))
+                {
+                <a asp-action="CrearUsuario" asp-controller="Dashboard" class="btn btn-outline-primary">
+                        <i class="bi bi-person-plus"></i> Crear Usuario
+                    </a>
+                }
+            
+
+            
 
             <style>
                 .hover-primary:hover {
@@ -75,7 +90,7 @@
                                     <a asp-action="Editar" asp-controller="Dashboard" asp-area="Admin" asp-route-id="@vehiculo.Id" class="btn btn-sm btn-warning me-1" title="Editar">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-
+                                    
                                      <a asp-action="Borrar" asp-controller="Dashboard" asp-area="Admin" asp-route-id="@vehiculo.Id" class="btn btn-sm btn-danger me-1" title="Borrar">
                                          <i class="bi bi-trash-fill"></i>
                                     </a>

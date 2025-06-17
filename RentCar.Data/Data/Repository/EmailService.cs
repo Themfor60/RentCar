@@ -20,7 +20,7 @@ namespace SendEmail.Services
             var emailSettings = _config.GetSection("Email");
 
             var correoDestino = reserva.EmailCliente;
-            var asunto = "Confirmación de Reserva - RentCar";
+            var asunto = "Confirmación de Reserva - Lucerna RentCar";
 
             var cuerpo = $@"
                 <h2>¡Gracias por tu reserva, {reserva.Nombre} {reserva.Apellido}!</h2>
@@ -29,6 +29,7 @@ namespace SendEmail.Services
                 <p><strong>Fecha de Entrega:</strong> {reserva.FechaEntrega:dd/MM/yyyy} a las {reserva.HoraEntrega}</p>
                 <p><strong>Ubicación:</strong> {reserva.CiudadCodigo}</p>
                 <br/>
+                <p>Se le estara contactando para completar la reservacion</p>
                 <p>Gracias por confiar en Lucerna RentCar.</p>
             ";
 
