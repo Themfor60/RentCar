@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
 using RentCar.Models;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RentCar.Areas.Cliente.Controllers
 {
@@ -16,17 +18,10 @@ namespace RentCar.Areas.Cliente.Controllers
             _context = context;
         }
 
-        // Controladores de las vistas
+       
+        public IActionResult Index() => View();
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult About()
-        {
-            return View();
-        }
+        public IActionResult About() => View();
 
         public IActionResult Vehicles()
         {
@@ -34,72 +29,113 @@ namespace RentCar.Areas.Cliente.Controllers
             return View(vehiculos);
         }
 
-        public IActionResult Contact()
-        {
-            return View();
-        }
+        public IActionResult Contact() => View();
 
-        public IActionResult Travels()
-        {
-            return View();
-        }
+        public IActionResult Travels() => View();
 
-        public IActionResult AlquilarVehiculo()
-        {
-            return View();
-        }
+        public IActionResult AlquilarVehiculo() => View();
+
+
 
         [HttpGet]
-        public IActionResult DatosPersonales(int id)
+        public async Task<IActionResult> DatosPersonales(int id)
         {
-            var vehiculo = _context.vehiculos.FirstOrDefault(v => v.Id == id);
-            if (vehiculo == null) return NotFound();
+            var vehiculo = await _context.vehiculos.FirstOrDefaultAsync(v => v.Id == id);
+            if (vehiculo == null)
+                return NotFound();
 
-            var viewModel = new RentaFormularioViewModel
+
+            var viewModel = new ReservaRequest
             {
-                Vehiculo = vehiculo,
-                Request = new ReservaRequest()
+                VehiculoId = vehiculo.Id,
+                FechaRecogida = DateTime.Today,
+                HoraRecogida = new TimeSpan(9, 0, 0),
+                FechaEntrega = DateTime.Today.AddDays(1),
+                HoraEntrega = new TimeSpan(9, 0, 0),
+                FechaNacimiento = DateTime.Today.AddYears(-25),
+                Tripulantes = 1
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult DatosPersonales(RentaFormularioViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DatosPersonales(ReservaRequest model)
         {
+           
             if (!ModelState.IsValid)
             {
-                model.Vehiculo = _context.vehiculos.FirstOrDefault(v => v.Id == model.Vehiculo.Id);
+               
+                Debug.WriteLine("Errores de validación:");
+                foreach (var state in ModelState.Values)
+                {
+                    foreach (var error in state.Errors)
+                    {
+                        Debug.WriteLine(error.ErrorMessage);
+                    }
+                }
+                await LoadVehiculoDataForView(model.VehiculoId.GetValueOrDefault());
                 return View(model);
             }
 
-            var reserva = new ReservaRequest()
+            try
             {
-                IdReserva = model.Vehiculo.Id,
-                Nombre = model.Request.Nombre,
-                Apellido = model.Request.Apellido,
-                Telefono = model.Request.Telefono,
-                EmailCliente = model.Request.EmailCliente
-            };
+               
+                model.FechaHoraRecogidaCompleta = model.FechaRecogida.Date + model.HoraRecogida;
+                model.FechaHoraEntregaCompleta = model.FechaEntrega.Date + model.HoraEntrega;
 
-            _context.reservaRequests.Add(reserva);
-            _context.SaveChanges();
+               
+                if (model.FechaHoraEntregaCompleta <= model.FechaHoraRecogidaCompleta)
+                {
+                    ModelState.AddModelError(string.Empty, "La fecha y hora de entrega deben ser posteriores a la de recogida.");
+                    await LoadVehiculoDataForView(model.VehiculoId.GetValueOrDefault());
+                    return View(model);
+                }
 
-            return RedirectToAction("Vehicles");
+               
+                _context.reservaRequests.Add(model); 
+                
+                await _context.SaveChangesAsync();
+               
+                TempData["MensajeExito"] = "¡Tu reserva ha sido registrada con éxito!";
+                return RedirectToAction("ConfirmacionReserva");
+            }
+            catch (Exception ex)
+            {
+                
+                ModelState.AddModelError(string.Empty, $"Error al guardar la reserva: {ex.Message}. Por favor, inténtalo de nuevo.");
+                Debug.WriteLine($"Error al guardar la reserva: {ex}"); 
+                
+                await LoadVehiculoDataForView(model.VehiculoId.GetValueOrDefault());
+                return View(model);
+            }
         }
 
-
-
-
-        public IActionResult Privacy()
+        private async Task LoadVehiculoDataForView(int vehiculoId)
         {
-            return View();
+            var vehiculo = await _context.vehiculos.FirstOrDefaultAsync(v => v.Id == vehiculoId);
+            if (vehiculo != null)
+            {
+                ViewData["VehiculoMarca"] = vehiculo.Marca;
+                ViewData["VehiculoModelo"] = vehiculo.Modelo;
+                ViewData["VehiculoFoto"] = vehiculo.Foto != null ? Convert.ToBase64String(vehiculo.Foto) : null;
+                ViewData["Transmision"] = vehiculo.Transmision;
+                ViewData["CapacidadPersonas"] = vehiculo.CapacidadPersonas;
+                ViewData["CapacidadMaletero"] = vehiculo.CapacidadMaletero;
+            }
         }
+
+        
+
+
+
+      public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+             }     }
+  
 }

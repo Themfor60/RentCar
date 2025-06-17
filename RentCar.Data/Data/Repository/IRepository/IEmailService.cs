@@ -7,6 +7,6 @@ namespace SendEmail.Services
     public interface IEmailService
     {
 
-        void SendEmail(RentaFormularioViewModel request);
+        void SendEmail(ReservaRequest request);
     }
 }

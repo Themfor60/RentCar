@@ -224,50 +224,6 @@ namespace RentCar.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RentCar.Models.RentaFormularioViewModel", b =>
-                {
-                    b.Property<int>("IdRenta")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdRenta"));
-
-                    b.Property<string>("CiudadCodigo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmailDestino")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaRecogida")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("HoraEntrega")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("HoraRecogida")
-                        .HasColumnType("time");
-
-                    b.Property<int>("Tripulantes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehiculoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdRenta");
-
-                    b.HasIndex("VehiculoId");
-
-                    b.ToTable("formulario");
-                });
-
             modelBuilder.Entity("RentCar.Models.ReservaRequest", b =>
                 {
                     b.Property<int>("IdReserva")
@@ -284,24 +240,53 @@ namespace RentCar.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CiudadCodigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("EmailCliente")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaHoraEntregaCompleta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaHoraRecogidaCompleta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaRecogida")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("HoraEntrega")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraRecogida")
+                        .HasColumnType("time");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RentaFormularioIdRenta")
-                        .HasColumnType("int");
-
                     b.Property<string>("Telefono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Tripulantes")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("VehiculoId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
                     b.HasKey("IdReserva");
 
-                    b.HasIndex("RentaFormularioIdRenta");
+                    b.HasIndex("VehiculoId");
 
                     b.ToTable("reservaRequests");
                 });
@@ -391,7 +376,7 @@ namespace RentCar.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RentCar.Models.RentaFormularioViewModel", b =>
+            modelBuilder.Entity("RentCar.Models.ReservaRequest", b =>
                 {
                     b.HasOne("RentCar.Models.Vehiculo", "Vehiculo")
                         .WithMany()
@@ -400,17 +385,6 @@ namespace RentCar.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehiculo");
-                });
-
-            modelBuilder.Entity("RentCar.Models.ReservaRequest", b =>
-                {
-                    b.HasOne("RentCar.Models.RentaFormularioViewModel", "RentaFormulario")
-                        .WithMany()
-                        .HasForeignKey("RentaFormularioIdRenta")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RentaFormulario");
                 });
 #pragma warning restore 612, 618
         }

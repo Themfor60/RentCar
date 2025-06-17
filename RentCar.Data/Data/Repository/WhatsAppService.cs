@@ -26,9 +26,9 @@ public class WhatsAppService
             Email: {request.EmailCliente}
             Teléfono: {request.Telefono}
             Vehículo:
-            Recogida: {request.RentaFormulario.FechaRecogida:yyyy-MM-dd} a las {request.RentaFormulario.HoraRecogida}
-            Entrega: {request.RentaFormulario.FechaEntrega:yyyy-MM-dd} a las {request.RentaFormulario.HoraEntrega}
-            Dirección: {request.RentaFormulario.CiudadCodigo}
+            Recogida: {request.FechaRecogida:yyyy-MM-dd} a las {request.HoraRecogida}
+            Entrega: {request.FechaEntrega:yyyy-MM-dd} a las {request.HoraEntrega}
+            Dirección: {request.CiudadCodigo}
 
             ✅ Procede a gestionar esta reserva.";
 

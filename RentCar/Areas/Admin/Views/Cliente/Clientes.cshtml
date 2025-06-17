@@ -1,60 +1,107 @@
 ﻿@model IEnumerable<RentCar.Models.ReservaRequest>
 
 @{
-    ViewData["Title"] = "Dashboard de Gestión de Clientes";
+    ViewData["Title"] = "Gestión de Reservas y Clientes"; 
 }
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
 <div class="container-fluid">
-    <div class="row vh-100">
+    <div class="row min-vh-100">
+       
 
+        <nav class="col-md-2 bg-dark text-white p-3 d-flex flex-column gap-3">
+            <h4 class="text-center text-white mb-4"><i class="bi bi-speedometer2"></i> Panel Admin</h4> 
+
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-white text-decoration-none py-2 px-3 rounded hover-primary">
+                <i class="bi bi-car-front-fill me-2"></i> Vehículos
+            </a>
+            <a asp-area="Admin" asp-controller="Cliente" asp-action="Clientes" class="text-white text-decoration-none py-2 px-3 rounded hover-primary active bg-secondary">
+              
+                <i class="bi bi-people-fill me-2"></i> Clientes
+            </a>
+            <a asp-area="Admin" asp-controller="Rentas" asp-action="Index" class="text-white text-decoration-none py-2 px-3 rounded hover-primary">
+                
+                <i class="bi bi-calendar-check-fill me-2"></i> Rentas
+            </a>
+            <a asp-area="Admin" asp-controller="Finanzas" asp-action="Index" class="text-white text-decoration-none py-2 px-3 rounded hover-primary">
+                
+                <i class="bi bi-cash-stack me-2"></i> Finanzas
+            </a>
+            
+            <style>
+                .hover-primary:hover {
+                    background-color: #007bff; 
+                    color: white !important;
+                }
+            </style>
+        </nav>
 
         <main class="col-md-10 p-4">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2><i class="bi bi-car-front-fill"></i> Gestión de Clientes</h2>
+                <h2><i class="bi bi-people-fill me-2"></i> Gestión de Clientes y Reservas</h2>
+             
             </div>
 
             <div class="table-responsive">
                 <table class="table table-hover table-bordered align-middle shadow">
                     <thead class="table-dark text-center">
                         <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
+                            <th>ID Reserva</th>
+                            <th>Nombre Completo</th>
                             <th>Email</th>
-                            <th>Telefono</th>
-                            <th>Cedula</th>
-                            <th>Vehiculo</th>
+                            <th>Teléfono</th>
+                            <th>Cédula</th>
+                            <th>Vehículo Reservado</th>
+                            <th>Fecha/Hora Recogida</th> 
+                            <th>Fecha/Hora Entrega</th> 
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach (var vehiculo in Model)
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var reserva in Model) 
+                            {
+                                <tr>
+                                    <td>@reserva.IdReserva</td>
+                                    <td>@reserva.Nombre @reserva.Apellido</td> 
+                                    <td>@reserva.EmailCliente</td>
+                                    <td>@reserva.Telefono</td>
+                                    <td>@reserva.Cedula</td>
+                                    <td>
+                                        @if (reserva.Vehiculo != null)
+                                        {
+                                            @reserva.Vehiculo.Marca @: @reserva.Vehiculo.Modelo 
+                                        }
+                                        else
+                                        {
+                                            <span>N/A</span> 
+                                        }
+                                    </td>
+                                    <td>@reserva.FechaHoraRecogidaCompleta.ToString("dd/MM/yyyy HH:mm")</td> 
+                                    <td>@reserva.FechaHoraEntregaCompleta.ToString("dd/MM/yyyy HH:mm")</td> 
+                                    <td>
+                                      
+                                        <a asp-action="Details" asp-controller="Rentas" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-info me-1" title="Ver Detalles">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-controller="Rentas" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-warning me-1" title="Editar Reserva">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-controller="Rentas" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-danger" title="Eliminar Reserva">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td>@vehiculo.IdReserva</td>
-                                <td>@vehiculo.Nombre</td>
-                                <td>@vehiculo.Apellido</td>
-                                <td>@vehiculo.EmailCliente</td>
-                                <td>@vehiculo.Telefono</td>
-                                <td>@vehiculo.Cedula</td>
-                                
-                                <td>
-                                    <a asp-action="Editar" asp-controller="Dashboard" asp-area="Admin" asp-route-id="@vehiculo.IdReserva" class="btn btn-sm btn-warning me-1" title="Editar">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-
-                                    <a asp-action="Borrar" asp-controller="Dashboard" asp-area="Admin" asp-route-id="@vehiculo.IdReserva" class="btn btn-sm btn-danger me-1" title="Borrar">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </a>
-                                    <button class="btn btn-sm btn-success d-none" title="Guardar">
-                                        <i class="bi bi-save-fill"></i>
-                                    </button>
-                                </td>
+                                <td colspan="9" class="text-center">No hay reservas registradas.</td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </div>

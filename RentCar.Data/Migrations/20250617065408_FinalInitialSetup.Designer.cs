@@ -12,8 +12,8 @@ using RentCar.Data;
 namespace RentCar.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250531012755_CrearCategoria")]
-    partial class CrearCategoria
+    [Migration("20250617065408_FinalInitialSetup")]
+    partial class FinalInitialSetup
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,24 +227,105 @@ namespace RentCar.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RentCar.Models.Categoria", b =>
+            modelBuilder.Entity("RentCar.Models.ReservaRequest", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("IdReserva")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdReserva"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cedula")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CiudadCodigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailCliente")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaHoraEntregaCompleta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaHoraRecogidaCompleta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaRecogida")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("HoraEntrega")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraRecogida")
+                        .HasColumnType("time");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Orden")
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tripulantes")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.Property<int?>("VehiculoId")
+                        .IsRequired()
+                        .HasColumnType("int");
 
-                    b.ToTable("Categoria");
+                    b.HasKey("IdReserva");
+
+                    b.HasIndex("VehiculoId");
+
+                    b.ToTable("reservaRequests");
+                });
+
+            modelBuilder.Entity("RentCar.Models.Vehiculo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CapacidadMaletero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CapacidadPersonas")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Foto")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Marca")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Modelo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Transmision")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("vehiculos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -296,6 +377,17 @@ namespace RentCar.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RentCar.Models.ReservaRequest", b =>
+                {
+                    b.HasOne("RentCar.Models.Vehiculo", "Vehiculo")
+                        .WithMany()
+                        .HasForeignKey("VehiculoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehiculo");
                 });
 #pragma warning restore 612, 618
         }

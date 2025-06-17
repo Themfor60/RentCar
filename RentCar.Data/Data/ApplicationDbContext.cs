@@ -11,7 +11,6 @@ namespace RentCar.Data
         {
         }
         public DbSet<Vehiculo> vehiculos { get; set; }
-        public DbSet<RentaFormularioViewModel> formulario { get; set; }
         public DbSet<ReservaRequest> reservaRequests { get; set; }
 
         

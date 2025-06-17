@@ -18,9 +18,9 @@ namespace SendEmail.Services
             _config = config;
         }
 
-        public void SendEmail(RentaFormularioViewModel request)
+        public void SendEmail(ReservaRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.EmailDestino))
+            if (string.IsNullOrWhiteSpace(request.EmailCliente))
                 throw new ArgumentException("No se proporcionó un correo electrónico de destino.");
 
             var email = new MimeMessage();
@@ -29,7 +29,7 @@ namespace SendEmail.Services
             email.From.Add(MailboxAddress.Parse(_config.GetSection("Email:UserName").Value));
 
             // Dirección "To" desde el modelo
-            email.To.Add(MailboxAddress.Parse(request.EmailDestino));
+            email.To.Add(MailboxAddress.Parse(request.EmailCliente));
 
             email.Subject = "Confirmación de solicitud de alquiler";
 

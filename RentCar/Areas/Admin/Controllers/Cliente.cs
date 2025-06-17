@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
 using RentCar.Data.Data.Repository.IRepository;
 using RentCar.Models;
@@ -17,10 +18,13 @@ namespace RentCar.Areas.Admin.Controllers
 
         }
 
-        public IActionResult Clientes()
+        public async Task<IActionResult> Clientes() 
         {
-            var Clientes = _context.reservaRequests.ToList();
-            return View(Clientes);
+            
+            var reservas = await _context.reservaRequests
+                                         .Include(r => r.Vehiculo) 
+                                         .ToListAsync();
+            return View(reservas);
         }
     }
 }

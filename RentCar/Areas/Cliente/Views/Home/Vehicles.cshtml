@@ -42,7 +42,7 @@ else
                             <i class="fas fa-user-friends text-success"></i> Personas: @item.CapacidadPersonas <br />
                             <i class="fas fa-dollar-sign text-primary"></i> Precio por día: <strong>$@item.Precio.ToString("N2")</strong>
                         </p>
-                        <a asp-action="DatosPersonales" asp-controller="Home" asp-route-id="@item.Id" class="btn btn-primary w-100 rounded-pill shadow-sm">
+                        <a asp-action="DatosPersonales" asp-controller="Home" asp-route-id="@item.Id"  class="btn btn-primary w-100 rounded-pill shadow-sm">
                             <i class="fas fa-car"></i> Alquilar ahora
                         </a>
                     </div>

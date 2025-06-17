@@ -9,22 +9,32 @@
 <div class="container-fluid">
     <div class="row vh-100">
 
-        
-        <nav class="col-md-2 bg-dark text-white p-3 d-flex flex-column gap-3">
-            <h4 class="text-center text-white"><i class="bi bi-speedometer2"></i> Menú</h4>
 
-            <a asp-area="Cliente" asp-controller="Home" asp-action="Vehicles" class="text-white">
-                <i class="bi bi-car-front-fill"></i> Vehículos
+        <nav class="col-md-2 bg-dark text-white p-3 d-flex flex-column gap-3">
+            <h4 class="text-center text-white mb-4"><i class="bi bi-speedometer2"></i> Panel Admin</h4>
+
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-white text-decoration-none py-2 px-3 rounded hover-primary">
+                <i class="bi bi-car-front-fill me-2"></i> Vehículos
             </a>
-            <a asp-area ="Admin" asp-controller="Cliente" asp-action="Clientes" class="text-white">
-                <i class="bi bi-people-fill"></i> Clientes
+            <a asp-area="Admin" asp-controller="Cliente" asp-action="Clientes" class="text-white text-decoration-none py-2 px-3 rounded hover-primary active bg-secondary">
+
+                <i class="bi bi-people-fill me-2"></i> Clientes
             </a>
-            <a href="#" class="text-white">
-                <i class="bi bi-calendar-check-fill"></i> Rentas
+            <a asp-area="Admin" asp-controller="Rentas" asp-action="Index" class="text-white text-decoration-none py-2 px-3 rounded hover-primary">
+
+                <i class="bi bi-calendar-check-fill me-2"></i> Rentas
             </a>
-            <a href="#" class="text-white">
-                <i class="bi bi-cash-stack"></i> Finanzas
+            <a asp-area="Admin" asp-controller="Finanzas" asp-action="Index" class="text-white text-decoration-none py-2 px-3 rounded hover-primary">
+
+                <i class="bi bi-cash-stack me-2"></i> Finanzas
             </a>
+
+            <style>
+                .hover-primary:hover {
+                    background-color: #007bff;
+                    color: white !important;
+                }
+            </style>
         </nav>
 
         
