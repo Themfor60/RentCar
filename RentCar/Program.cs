@@ -17,7 +17,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<EmailService>();
+
+//builder.Services.AddTransient<SendEmail.Services.EmailService>();
 builder.Services.AddSingleton<WhatsAppService>();
 
 

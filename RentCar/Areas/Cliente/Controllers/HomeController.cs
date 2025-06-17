@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
 using RentCar.Models;
+using SendEmail.Services;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace RentCar.Areas.Cliente.Controllers
@@ -12,14 +15,19 @@ namespace RentCar.Areas.Cliente.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly EmailService _emailService;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
 
+
         //Vistas Generales 
+
+
         public IActionResult Index() => View();
 
         public IActionResult About() => View();
@@ -31,7 +39,9 @@ namespace RentCar.Areas.Cliente.Controllers
         }
 
 
+
         public IActionResult ConfirmacionReserva() => View();
+
 
 
         public IActionResult Contact() => View();
@@ -44,7 +54,9 @@ namespace RentCar.Areas.Cliente.Controllers
 
 
 
+
         //EL GET DE RESERVA 
+
         [HttpGet]
         public async Task<IActionResult> DatosPersonales(int id)
         {
@@ -75,7 +87,9 @@ namespace RentCar.Areas.Cliente.Controllers
 
 
 
+
         //EL POSYT DE RESERVA 
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -111,9 +125,14 @@ namespace RentCar.Areas.Cliente.Controllers
                     
                     return View(model);
                 }
+                
 
                 _context.reservaRequests.Add(model);
                 await _context.SaveChangesAsync();
+
+
+                await _emailService.SendEmail(model);
+
 
                 TempData["MensajeExito"] = "¡Tu reserva ha sido registrada con éxito!";
                 return RedirectToAction("ConfirmacionReserva");

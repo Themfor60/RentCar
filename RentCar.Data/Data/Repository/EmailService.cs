@@ -1,102 +1,55 @@
-﻿using RentCar.Models;
-using MailKit.Security;
-using MimeKit.Text;
-using MimeKit;
-using MailKit.Net.Smtp;
+﻿using System.Net;
+using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
-using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using static System.Formats.Asn1.AsnWriter;
+using RentCar.Models;
+using System.Threading.Tasks;
 
 namespace SendEmail.Services
 {
-    public class EmailService : IEmailService
+    public class EmailService
     {
         private readonly IConfiguration _config;
+
         public EmailService(IConfiguration config)
         {
             _config = config;
         }
 
-        public void SendEmail(ReservaRequest request)
+        public async Task SendEmail(ReservaRequest reserva)
         {
-            if (string.IsNullOrWhiteSpace(request.EmailCliente))
-                throw new ArgumentException("No se proporcionó un correo electrónico de destino.");
+            var emailSettings = _config.GetSection("Email");
 
-            var email = new MimeMessage();
+            var correoDestino = reserva.EmailCliente;
+            var asunto = "Confirmación de Reserva - RentCar";
 
-            // Dirección "From" configurada en appsettings.json
-            email.From.Add(MailboxAddress.Parse(_config.GetSection("Email:UserName").Value));
+            var cuerpo = $@"
+                <h2>¡Gracias por tu reserva, {reserva.Nombre} {reserva.Apellido}!</h2>
+                <p><strong>Vehículo:</strong> {reserva.Vehiculo?.Marca} {reserva.Vehiculo?.Modelo}</p>
+                <p><strong>Fecha de Recogida:</strong> {reserva.FechaRecogida:dd/MM/yyyy} a las {reserva.HoraRecogida}</p>
+                <p><strong>Fecha de Entrega:</strong> {reserva.FechaEntrega:dd/MM/yyyy} a las {reserva.HoraEntrega}</p>
+                <p><strong>Ubicación:</strong> {reserva.CiudadCodigo}</p>
+                <br/>
+                <p>Gracias por confiar en Lucerna RentCar.</p>
+            ";
 
-            // Dirección "To" desde el modelo
-            email.To.Add(MailboxAddress.Parse(request.EmailCliente));
-
-            email.Subject = "Confirmación de solicitud de alquiler";
-
-            // Construimos el cuerpo con formato HTML para que se vea mejor (puedes usar Text si prefieres texto plano)
-            email.Body = new TextPart(TextFormat.Html)
+            var smtpClient = new SmtpClient(emailSettings["Host"])
             {
-                Text = $@"
-                <div class=""bg-light"">
-                  <div class=""container my-5"">
-                    <div class=""card shadow-lg"">
-                      <div class=""card-body"">
-                        <h2 class=""card-title text-center text-success mb-4"">Confirmación de Reserva</h2>
-
-                        <p>Estimado/a <strong>{request/*.Nombre*/}</strong>,</p>
-                        <p>Gracias por reservar con <strong>RentCar</strong>. Aquí tienes los detalles de tu reserva:</p>
-
-                        <table class=""table table-bordered mt-4"">
-                          <tbody>
-                            <tr>
-                              <th scope=""row"">Vehículo</th>
-                              <td>{request/*.Vehiculo*/}</td>
-                            </tr>
-                            <tr>
-                              <th scope=""row"">Fecha de recogida</th>
-                              <td><strong>{request.FechaRecogida:yyyy-MM-dd} a las {request.HoraRecogida}</strong></td>
-                            </tr>
-                            <tr>
-                              <th scope=""row"">Fecha de entrega</th>
-                              <td><strong>{request.FechaEntrega:yyyy-MM-dd} a las {request.HoraEntrega}</strong></td>
-                            </tr>
-                            <tr>
-                              <th scope=""row"">Dirección de entrega</th>
-                              <td><strong>{request.CiudadCodigo}</strong></td>
-                            </tr>
-                          </tbody>
-                        </table>
-
-                        <p>Si necesitas realizar algún cambio o tienes preguntas, no dudes en contactarnos.</p>
-
-                        <p class=""mb-0"">Gracias por elegirnos,</p>
-                        <p class=""fw-bold"">Lucerna RentCar</p>
-                      </div>
-
-                      <div class=""card-footer text-center text-muted small"">
-                        © 2025 RentCar. Tel: (809) 555-1234 | soporte@Lucernarentcar.com
-                      </div>
-                    </div>
-                  </div>
-                </div>"
+                Port = int.Parse(emailSettings["Port"]),
+                Credentials = new NetworkCredential(emailSettings["UserName"], emailSettings["PassWord"]),
+                EnableSsl = true,
             };
 
-            using var smtp = new SmtpClient();
+            var mensaje = new MailMessage
+            {
+                From = new MailAddress(emailSettings["UserName"], "RentCar"),
+                Subject = asunto,
+                Body = cuerpo,
+                IsBodyHtml = true,
+            };
 
-            smtp.Connect(
-                _config.GetSection("Email:Host").Value,
-                Convert.ToInt32(_config.GetSection("Email:Port").Value),
-                SecureSocketOptions.StartTls
-            );
+            mensaje.To.Add(correoDestino);
 
-            smtp.Authenticate(
-                _config.GetSection("Email:UserName").Value,
-                _config.GetSection("Email:PassWord").Value
-            );
-
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            await smtpClient.SendMailAsync(mensaje);
         }
     }
 }
-
