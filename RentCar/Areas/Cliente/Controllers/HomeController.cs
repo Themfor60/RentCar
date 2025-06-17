@@ -19,7 +19,10 @@ namespace RentCar.Areas.Cliente.Controllers
         }
 
 
+
         //Vistas Generales 
+
+
         public IActionResult Index() => View();
 
         public IActionResult About() => View();
@@ -31,7 +34,9 @@ namespace RentCar.Areas.Cliente.Controllers
         }
 
 
+
         public IActionResult ConfirmacionReserva() => View();
+
 
 
         public IActionResult Contact() => View();
@@ -44,7 +49,9 @@ namespace RentCar.Areas.Cliente.Controllers
 
 
 
+
         //EL GET DE RESERVA 
+
         [HttpGet]
         public async Task<IActionResult> DatosPersonales(int id)
         {
@@ -75,7 +82,9 @@ namespace RentCar.Areas.Cliente.Controllers
 
 
 
+
         //EL POSYT DE RESERVA 
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
