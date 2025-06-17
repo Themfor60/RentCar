@@ -1,0 +1,66 @@
+﻿@model RentCar.Models.ReservaRequest
+
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-white">
+            <h4 class="mb-0"><i class="bi bi-trash-fill"></i> Editar Cliente</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="EditarCliente" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="IdReserva" />
+
+                <div class="mb-3">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre"  class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Apellido" class="form-label"></label>
+                    <input asp-for="Apellido" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EmailCliente" class="form-label"></label>
+                    <input asp-for="EmailCliente" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Telefono" class="form-label"></label>
+                    <input asp-for="Telefono"  class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vehículo</label>
+                    <input readonly  class="form-control" value="@($"{Model.Vehiculo?.Marca} {Model.Vehiculo?.Modelo}")" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Recogida</label>
+                    <input  class="form-control" value="@Model.FechaHoraRecogidaCompleta.ToString("dd/MM/yyyy HH:mm")" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha Entrega</label>
+                    <input  class="form-control" value="@Model.FechaHoraEntregaCompleta.ToString("dd/MM/yyyy HH:mm")" />
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Clientes" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver
+                    </a>
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-save-fill"></i> Editar
+                    </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

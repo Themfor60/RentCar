@@ -1,21 +1,67 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using RentCar.Data;
 using RentCar.Data.Data.Repository.IRepository;
 using RentCar.Models;
 
 namespace RentCar.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,SuperUsuario")]
 
     [Area("Admin")]
     public class Dashboard : Controller
     {
         private readonly ApplicationDbContext _context;
-        
-        public Dashboard(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public Dashboard(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
-
+            _userManager = userManager;
         }
+
+
+        [HttpGet]
+        public IActionResult CrearUsuario()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CrearUsuario(string email, string password, string rol)
+        {
+            var usuario = new IdentityUser
+            {
+                UserName = email,
+                Email = email,
+                EmailConfirmed = true
+            };
+
+            var resultado = await _userManager.CreateAsync(usuario, password);
+
+            if (resultado.Succeeded)
+            {
+                // Asignar rol
+                await _userManager.AddToRoleAsync(usuario, rol);
+
+                TempData["mensaje"] = "Usuario creado correctamente.";
+                return RedirectToAction("Index");
+            }
+
+            foreach (var error in resultado.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View();
+        }
+
+
+
+
+
 
         public IActionResult Index()
         {

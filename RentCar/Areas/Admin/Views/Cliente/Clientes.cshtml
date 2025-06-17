@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<RentCar.Models.ReservaRequest>
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
 
 @{
     ViewData["Title"] = "Gestión de Reservas y Clientes"; 
@@ -28,6 +31,13 @@
                 
                 <i class="bi bi-cash-stack me-2"></i> Finanzas
             </a>
+
+            @if (User.IsInRole("SuperUsuario"))
+            {
+                <a asp-action="CrearUsuario" asp-controller="Dashboard" class="btn btn-outline-primary">
+                    <i class="bi bi-person-plus"></i> Crear Usuario
+                </a>
+            }
             
             <style>
                 .hover-primary:hover {
@@ -51,7 +61,7 @@
                             <th>Nombre Completo</th>
                             <th>Email</th>
                             <th>Teléfono</th>
-                            <th>Cédula</th>
+                            <th>Cédula</th>                            
                             <th>Vehículo Reservado</th>
                             <th>Fecha/Hora Recogida</th> 
                             <th>Fecha/Hora Entrega</th> 
@@ -82,16 +92,19 @@
                                     <td>@reserva.FechaHoraRecogidaCompleta.ToString("dd/MM/yyyy HH:mm")</td> 
                                     <td>@reserva.FechaHoraEntregaCompleta.ToString("dd/MM/yyyy HH:mm")</td> 
                                     <td>
-                                      
-                                        <a asp-action="Details" asp-controller="Rentas" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-info me-1" title="Ver Detalles">
+
+                                        <a asp-action="DetalleCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-info me-1" title="Ver Detalles">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a asp-action="Edit" asp-controller="Rentas" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-warning me-1" title="Editar Reserva">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a asp-action="Delete" asp-controller="Rentas" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-danger" title="Eliminar Reserva">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
+                                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperUsuario"))
+                                        {
+                                            <a asp-action="EditarCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-warning me-1" title="Editar Reserva">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a asp-action="BorrarCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-danger" title="Eliminar Reserva">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        }
                                     </td>
                                 </tr>
                             }
