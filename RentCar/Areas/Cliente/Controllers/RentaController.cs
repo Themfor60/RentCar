@@ -32,7 +32,7 @@ public class RentaController : Controller
             
             _emailService.SendEmail(model);
 
-            // Crear y guardar reserva en la base de datos
+            
             var reserva = new ReservaRequest
             {
                 Nombre = model.Nombre,

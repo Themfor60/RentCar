@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
 using RentCar.Data.Data.Repository.IRepository;
@@ -8,6 +9,7 @@ namespace RentCar.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Admin,SuperUsuario")]
     public class Cliente : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -32,6 +34,7 @@ namespace RentCar.Areas.Admin.Controllers
 
 
         //controlador para boorar los cliente dell dashboar 
+        //[Authorize(Roles = "SuperUsuario")]
         [HttpGet]
         public async Task<IActionResult> BorrarCliente(int id)
         {
@@ -68,7 +71,7 @@ namespace RentCar.Areas.Admin.Controllers
 
 
         //controlador para editar los cliente dell dashboar 
-
+        //[Authorize(Roles = "SuperUsuario")]
         [HttpGet]
         public async Task<IActionResult> EditarCliente(int id)
         {
@@ -85,7 +88,7 @@ namespace RentCar.Areas.Admin.Controllers
         }
 
 
-
+        //[Authorize(Roles = "SuperUsuario")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarCliente(ReservaRequest reservaRequest)

@@ -43,7 +43,7 @@ namespace RentCar.Areas.Admin.Controllers
 
             if (resultado.Succeeded)
             {
-                // Asignar rol
+                
                 await _userManager.AddToRoleAsync(usuario, rol);
 
                 TempData["mensaje"] = "Usuario creado correctamente.";
@@ -129,6 +129,7 @@ namespace RentCar.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("Borrar")]
         public IActionResult BorrarConfirmado(int id)
         {

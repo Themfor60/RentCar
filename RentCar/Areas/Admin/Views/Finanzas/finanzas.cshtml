@@ -1,0 +1,141 @@
+﻿@using System.Text.Json
+@using RentCar.Models
+@model IEnumerable<RentCar.Models.ReservaRequest>
+@{
+    ViewData["Title"] = "Dashboard de Finanzas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var datos = ViewBag.Datos as List<FinanzasResumen> ?? new List<FinanzasResumen>();
+    var totalIngresos = datos.Any() ? datos.Sum(d => (decimal)d.Ingresos) : 0;
+    var totalAlquileres = datos.Any() ? datos.Sum(d => (int)d.Alquileres) : 0;
+    var topDia = datos.Any() ? datos.OrderByDescending(d => d.Ingresos).FirstOrDefault() : null;
+}
+
+<h2 class="text-2xl font-bold mb-4"> Finanzas</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5>Total Ingresos</h5>
+                <p class="h4">RD$ @totalIngresos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5>Total Alquileres</h5>
+                <p class="h4">@totalAlquileres</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <h5>Día con más ingresos</h5>
+                <p class="h4">@(topDia != null ? topDia.Fecha + " - RD$ " + topDia.Ingresos : "No hay datos")</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- <div class="mb-3">
+    <label>Seleccionar Rango de Fechas:</label>
+    <input type="date" id="fechaInicio" />
+    <input type="date" id="fechaFin" />
+    <button class="btn btn-primary" onclick="filtrarDatos()">Filtrar</button>
+</div>
+-->
+
+<canvas id="graficoIngresos" height="100"></canvas>
+
+<table class="table table-bordered mt-4">
+    <thead class="thead-dark">
+        <tr>
+            <th>Vehículo</th>
+            <th>Fecha de Recogida</th>
+            <th>Fecha de Entraga</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Vehiculo?.Marca @item.Vehiculo?.Modelo</td>
+                <td>@item.FechaHoraRecogidaCompleta.ToString("yyyy-MM-dd")</td>
+                <td>@item.FechaHoraEntregaCompleta.ToString("yyyy-MM-dd")</td>
+                <td>RD$ @item.Vehiculo?.Precio.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h5 class="mt-2">Total generado por todos los alquileres: <strong>RD$ @Model.Sum(x => x.Vehiculo?.Precio ?? 0).ToString("N2")</strong></h5>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@{
+    var datosJson = JsonSerializer.Serialize(ViewBag.Datos as List<FinanzasResumen> ?? new List<FinanzasResumen>());
+}
+<script>
+    let datos = @Html.Raw(datosJson);
+
+    function generarGrafico(filtrados) {
+        const ctx = document.getElementById('graficoIngresos').getContext('2d');
+        const labels = filtrados.map(d => d.Fecha);
+        const ingresos = filtrados.map(d => d.Ingresos);
+        const alquileres = filtrados.map(d => d.Alquileres);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Ingresos (RD$)',
+                        data: ingresos,
+                        backgroundColor: '#3b82f6'
+                    },
+                    {
+                        label: 'Alquileres',
+                        data: alquileres,
+                        backgroundColor: '#22c55e'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Resumen Financiero por Fecha'
+                    }
+                }
+            }
+        });
+    }
+
+    function filtrarDatos() {
+        const inicio = document.getElementById("fechaInicio").value;
+        const fin = document.getElementById("fechaFin").value;
+
+        const filtrados = datos.filter(d => (!inicio || d.Fecha >= inicio) && (!fin || d.Fecha <= fin));
+        document.getElementById("graficoIngresos").remove();
+
+        const nuevoCanvas = document.createElement("canvas");
+        nuevoCanvas.id = "graficoIngresos";
+        nuevoCanvas.height = 100;
+        document.body.appendChild(nuevoCanvas);
+
+        generarGrafico(filtrados);
+    }
+
+    window.onload = () => {
+        generarGrafico(datos);
+    };
+</script>
