@@ -15,6 +15,8 @@ namespace SendEmail.Services
             _config = config;
         }
 
+
+
         public async Task SendEmail(ReservaRequest reserva)
         {
             var emailSettings = _config.GetSection("Email");

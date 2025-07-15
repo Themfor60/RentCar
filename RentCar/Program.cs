@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
+using RentCar.Data.Data.Repository;
 using SendEmail.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +44,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddSingleton<WhatsAppService>();
+builder.Services.AddScoped<EmailServiceContactos>();
+
 
 var app = builder.Build();
 

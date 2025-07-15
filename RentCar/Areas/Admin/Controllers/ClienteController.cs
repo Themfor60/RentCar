@@ -10,18 +10,18 @@ namespace RentCar.Areas.Admin.Controllers
 
     [Area("Admin")]
     [Authorize(Roles = "Admin,SuperUsuario")]
-    public class Cliente : Controller
+    public class ClienteController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Cliente(ApplicationDbContext context)
+        public ClienteController(ApplicationDbContext context)
         {
             _context = context;
 
         }
 
         //controlador en listar  los cliente del dashboa
-
+         
         public async Task<IActionResult> Clientes() 
         {
             
@@ -30,6 +30,37 @@ namespace RentCar.Areas.Admin.Controllers
                                          .ToListAsync();
             return View(reservas);
         }
+
+
+        // En controlador del contrato
+        [HttpGet]
+        public IActionResult ContratoCliente(int id)
+        {
+            var reserva = _context.reservaRequests
+                                  .Include(r => r.Vehiculo)
+                                  .FirstOrDefault(r => r.IdReserva == id);
+
+            if (reserva == null)
+            {
+                return NotFound();
+            }
+
+            return View(reserva);
+        }
+
+
+        public IActionResult FacturaCliente(int id)
+        {
+            var reserva = _context.reservaRequests
+                          .Include(r => r.Vehiculo)
+                          .FirstOrDefault(r => r.IdReserva == id);
+
+            if (reserva == null) return NotFound();
+
+            return View(reserva);
+        }
+
+
 
 
 
@@ -100,9 +131,9 @@ namespace RentCar.Areas.Admin.Controllers
                 return RedirectToAction("Clientes");
             }
 
+           
 
-
-            return View("EditarCliente");
+            return View("EditarCliente", reservaRequest);
         }
 
 

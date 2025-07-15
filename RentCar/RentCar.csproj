@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\contrato.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="C:\Users\Uriel\Desktop\backRentCAR\appsettings.json" Link="appsettings.json" />
   </ItemGroup>
 

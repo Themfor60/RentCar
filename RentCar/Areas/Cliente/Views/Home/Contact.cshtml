@@ -1,4 +1,11 @@
-﻿ <!-- Contact Start -->
+﻿@model RentCar.Models.MensajeDeContactoModels
+
+@{
+    ViewData["Title"] = "Contactos";
+}
+
+
+<!-- Contact Start -->
 <div class="container-fluid py-5">
     <div class="container pt-1 pb-3">
         <h1 class="text-center mb-4">Contáctanos</h1>
@@ -6,25 +13,33 @@
             <div class="col-lg-8">
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-body p-5 bg-light">
-                        <form>
+
+                        <form asp-action="MensajeDeContacto" asp-controller="Home" asp-area="Cliente" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control p-3" placeholder="Nombre" required>
+                                    <input asp-for="Nombre" class="form-control p-3" placeholder="Nombre" />
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="email" class="form-control p-3" placeholder="Correo" required>
+                                    <input asp-for="Correo" class="form-control p-3" placeholder="Correo" />
+                                    <span asp-validation-for="Correo" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control p-3" placeholder="Asunto" required>
+                                <input asp-for="Asunto" class="form-control p-3" placeholder="Asunto" />
+                                <span asp-validation-for="Asunto" class="text-danger"></span>
                             </div>
                             <div class="mb-4">
-                                <textarea class="form-control p-3" rows="5" placeholder="Mensaje" required></textarea>
+                                <textarea asp-for="Mensaje" class="form-control p-3" rows="5" placeholder="Mensaje"></textarea>
+                                <span asp-validation-for="Mensaje" class="text-danger"></span>
                             </div>
                             <div class="text-center">
                                 <button class="btn btn-primary px-5 py-3" type="submit">Enviar</button>
                             </div>
                         </form>
+
+
+
                     </div>
                 </div>
             </div>

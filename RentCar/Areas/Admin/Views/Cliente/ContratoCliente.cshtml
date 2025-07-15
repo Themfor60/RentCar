@@ -1,0 +1,79 @@
+﻿@model RentCar.Models.ReservaRequest
+
+@{
+    ViewData["Title"] = "Contrato de cliente";
+}
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/css/contrato.css" asp-append-version="true" />
+
+<div class="contract-container">
+    <h1>CONTRATO DE ALQUILER DE VEHÍCULO</h1>
+
+    <div>
+        <p><strong>ENTRE:</strong> De una parte, la empresa <strong>Lucerna Rent a car</strong>, con domicilio en <em>Santo Domingo</em>, representada por su CEO, Manuel Miñe, a quien en lo adelante se denominará <strong>“EL ARRENDADOR”</strong>.</p>
+        <p>Y de la otra parte, el/la Sr./Sra. <strong>@Model.Nombre</strong>, portador/a de la cédula/ID <strong>@Model.Cedula</strong>, con domicilio en <strong>@Model.CiudadCodigo</strong>, a quien en lo adelante se denominará <strong>“EL ARRENDATARIO”</strong>.</p>
+    </div>
+
+    <div>
+        <p class="section-title">PRIMERO: Objeto del Contrato</p>
+        <p>Mediante este contrato, EL ARRENDADOR entrega en calidad de alquiler al ARRENDATARIO el siguiente vehículo:</p>
+        <ul>
+            <li>Marca: <strong>@Model.Vehiculo.Marca</strong></li>
+            <li>Modelo: <strong>@Model.Vehiculo.Modelo</strong></li>
+        </ul>
+    </div>
+
+    <div>
+        <p class="section-title">SEGUNDO: Duración del Alquiler</p>
+        <p>El alquiler tendrá una duración desde el día <strong>@Model.FechaRecogida.ToString("dd/MM/yyyy")</strong> hasta el día <strong>@Model.FechaEntrega.ToString("dd/MM/yyyy")</strong>, pudiendo renovarse previo acuerdo entre ambas partes.</p>
+    </div>
+
+    <div>
+        <p class="section-title">TERCERO: Monto del Alquiler</p>
+        <p>El ARRENDATARIO pagará la suma total de <strong>@Model.Vehiculo.Precio.ToString("C")</strong> por el período antes mencionado. Este monto incluye seguro básico, pero no incluye combustible ni posibles multas.</p>
+    </div>
+
+    <div>
+        <p class="section-title">CUARTO: Obligaciones del Arrendatario</p>
+        <ul>
+            <li>Usar el vehículo exclusivamente para fines personales y legales.</li>
+            <li>No subarrendar ni prestar el vehículo.</li>
+            <li>Devolver el vehículo en las mismas condiciones en que lo recibió, salvo el desgaste normal.</li>
+            <li>Asumir los costos por daños ocasionados por negligencia o mal uso.</li>
+        </ul>
+    </div>
+
+    <div>
+        <p class="section-title">QUINTO: Cláusulas adicionales</p>
+        <p>Cualquier daño, multa, o accidente será asumido por el ARRENDATARIO. El ARRENDADOR se reserva el derecho de terminar el contrato en caso de incumplimiento.</p>
+    </div>
+
+    <div>
+        <p>En señal de conformidad, ambas partes firman el presente contrato en <strong>San Isidro</strong>, a los <strong>@DateTime.Now:dd</strong> días del mes de <strong>@DateTime.Now:MMMM</strong> del año <strong>@DateTime.Now:yyyy</strong>.</p>
+    </div>
+
+    <div class="signature-block">
+        <div>
+            EL ARRENDADOR<br />
+            Lucerna Rent a car
+        </div>
+        <div>
+            EL ARRENDATARIO<br />
+            @Model.Nombre
+        </div>
+    </div>
+</div>
+
+<!-- Botones que no se imprimirán gracias a clase 'no-print' -->
+<div class="mt-4 d-flex justify-content-between align-items-center no-print" style="max-width: 800px; margin: auto;">
+    <a asp-action="FacturaCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@Model.IdReserva" class="btn btn-secondary btn-volver">
+        <i class="bi bi-arrow-left"></i> Volver
+    </a>
+
+    <button onclick="window.print()" class="btn-contrato btn btn-outline-primary">
+        <i class="bi bi-printer"></i> Imprimir
+    </button>
+</div>

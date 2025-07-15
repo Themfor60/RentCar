@@ -1,0 +1,60 @@
+﻿@model RentCar.Models.ReservaRequest
+@{
+    Layout = null;
+    var total = Model.Vehiculo?.Precio ?? 0;
+}
+
+<link rel="stylesheet" href="~/css/FacturaCliente.css" asp-append-version="true" />
+
+
+<body>
+    <div class="recibo-container">
+        <div class="header">
+            <h1>Lucerna Rent a Car</h1>
+            <p>Recibo Oficial de Reserva</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Información del Cliente</div>
+            <div class="info-item"><label>Nombre:</label> @Model.Nombre @Model.Apellido</div>
+            <div class="info-item"><label>Email:</label> @Model.EmailCliente</div>
+            <div class="info-item"><label>Teléfono:</label> @Model.Telefono</div>
+            <div class="info-item"><label>Cédula:</label> @Model.Cedula</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Datos de la Reserva</div>
+            <div class="info-item"><label>Ciudad:</label> @Model.CiudadCodigo</div>
+            <div class="info-item"><label>Fecha y Hora de Recogida:</label> @Model.FechaRecogida.ToShortDateString() @Model.HoraRecogida</div>
+            <div class="info-item"><label>Fecha y Hora de Entrega:</label> @Model.FechaEntrega.ToShortDateString() @Model.HoraEntrega</div>
+            <div class="info-item"><label>Tripulantes:</label> @Model.Tripulantes</div>
+            <div class="info-item"><label>Fecha de Nacimiento:</label> @Model.FechaNacimiento.ToShortDateString()</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Vehículo Reservado</div>
+            <div class="info-item"><label>Marca:</label> @Model.Vehiculo?.Marca</div>
+            <div class="info-item"><label>Modelo:</label> @Model.Vehiculo?.Modelo</div>
+        </div>
+
+        <div class="total">
+            Total Pagado: @total.ToString("C")
+        </div>
+
+        <div class="footer">
+            Gracias por confiar en Lucerna Rent a Car. Le esperamos pronto.
+        </div>
+
+        <button class="print-button" onclick="window.print()">Imprimir Recibo</button>
+
+        <div class="d-flex justify-content-between mt-4">
+         <a asp-action="Clientes" asp-controller="Cliente" asp-area="Admin" class=" btn-volver">
+            <i class="bi bi-arrow-left"></i> Volver
+         </a>
+         <a asp-action="ContratoCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@Model.IdReserva" class="btn btn-success btn-contrato">Ver contrato</a>
+        </div>
+    </div>
+
+   
+</body>
+

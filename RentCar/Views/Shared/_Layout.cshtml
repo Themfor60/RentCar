@@ -1,43 +1,37 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Lucerna Rent-A-Car</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Lucerna Rent-A-Car</title>
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap5.min.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- CSS personalizados -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RentCar.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+
+    <!-- Plugins CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.5/sweetalert2.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="~/img/favicon.ico" />
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheets -->
+    <!-- Bibliotecas adicionales -->
     <link rel="stylesheet" href="~/lib/owlcarousel/assets/owl.carousel.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
-    @* <link rel="stylesheet" href="~/RentCar.styles.css" asp-append-version="true" />  *@
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-
-
 </head>
-@{
-    var isHomePage = Context.Request.Path == "/";
-}
 <body>
 
     <!-- Topbar Start -->
@@ -52,27 +46,16 @@
             </div>
             <div class="col-md-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-left">
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                    <a class="text-body px-3" href="">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a class="text-body pl-3" href="">
-                        <i class="fab fa-youtube"></i>
-                    </a>
+                    <a class="text-body px-3" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="text-body px-3" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="text-body px-3" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="text-body px-3" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="text-body pl-3" href="#"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
     </div>
     <!-- Topbar End -->
-
     <!-- Navbar Start -->
     <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative" style="z-index: 9;">
@@ -81,16 +64,15 @@
                     <h1 class="text-uppercase text-primary mb-1">Lucerna Rent Cars</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse  justify-content-between px-3 " id="navbarCollapse">
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <ul class="navbar-nav m-lg-auto py-0">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Cliente" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Cliente" asp-controller="Home" asp-action="Vehicles">Vehiculos</a>
+                            <a class="nav-link" asp-area="Cliente" asp-controller="Home" asp-action="Vehicles">Vehículos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Cliente" asp-controller="Home" asp-action="About">Sobre Nosotros</a>
@@ -100,21 +82,17 @@
                         </li>
                         @if (User.IsInRole("Admin") || User.IsInRole("SuperUsuario"))
                         {
-                           <li class="nav-item">
-                               <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                           </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                            </li>
                         }
-
-
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
-
             </nav>
         </div>
     </div>
     <!-- Navbar End -->
-
 
     <div class="container-fluid p-0">
         <main role="main" class="pb-3">
@@ -122,7 +100,7 @@
         </main>
     </div>
 
-
+    <!-- Footer Start -->
     <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 0px;">
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
@@ -130,7 +108,7 @@
                 <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>Calle Central #10, Lucerna, Santo Domingo Este</p>
                 <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>80912345678</p>
                 <p><i class="fa fa-envelope text-white mr-3"></i>info@RentLucerna.com</p>
-                <h6 class="text-uppercase text-white py-2">Siguenos</h6>
+                <h6 class="text-uppercase text-white py-2">Síguenos</h6>
                 <div class="d-flex justify-content-start">
                     <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
@@ -139,7 +117,7 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Enlace Útiles</h4>
+                <h4 class="text-uppercase text-light mb-4">Enlaces Útiles</h4>
                 <div class="d-flex flex-column justify-content-start">
                     <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Política de Privacidad</a>
                     <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Términos y Condiciones</a>
@@ -147,68 +125,49 @@
                     <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Devolución y Reembolso</a>
                 </div>
             </div>
-           @*  <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Car Gallery</h4>
-                <div class="row mx-n1">
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="img/gallery-1.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="img/gallery-2.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="img/gallery-3.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="img/gallery-4.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="img/gallery-5.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="img/gallery-6.jpg" alt=""></a>
-                    </div>
-                </div>
-            </div> *@
+            
+            @*
+            <div class="col-lg-3 col-md-6 mb-5">
+            <h4 class="text-uppercase text-light mb-4">Car Gallery</h4>
+            <div class="row mx-n1">
+            <div class="col-4 px-1 mb-2">
+            <a href=""><img class="w-100" src="img/gallery-1.jpg" alt=""></a>
+            </div>
+            <!-- Más imágenes aquí -->
+            </div>
+            </div>
+            *@
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="text-uppercase text-light mb-4">Boletín Informativo</h4>
-                <p class="mb-4">Suscríbete a nuestro boletín informativo para recibir las últimas ofertas, noticias y novedades directamente 
-                    en tu correo. Mantente siempre informado y aprovecha beneficios exclusivos con Lucerna Rent Car.</p>
+                <p class="mb-4">Suscríbete a nuestro boletín para recibir las últimas ofertas, noticias y novedades directamente en tu correo. Mantente siempre informado y aprovecha beneficios exclusivos con Lucerna Rent Car.</p>
                 <div class="w-100 mb-3">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-dark border-dark" style="padding: 25px;" placeholder="Correo">
+                        <input type="text" class="form-control bg-dark border-dark" style="padding: 25px;" placeholder="Correo" />
                         <div class="input-group-append">
-                            <button class="btn btn-primary text-uppercase px-3">Registrate</button>
+                            <button class="btn btn-primary text-uppercase px-3">Regístrate</button>
                         </div>
                     </div>
                 </div>
-                @* <i>Lorem sit sed elitr sed kasd et</i> *@
             </div>
         </div>
     </div>
     <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
-        <p class="mb-2 text-center text-body">&copy; <a href="#">Lucerna Rent Car</a>. All Rights Reserved.</p>
-        @* <p class="m-0 text-center text-body">Designed by <a href="https://htmlcodex.com">HTML Codex</a></p> *@
+        <p class="mb-2 text-center text-body">&copy; <a href="#">Lucerna Rent Car</a>. Todos los derechos reservados.</p>
     </div>
     <!-- Footer End -->
-    
-   
-
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/SwuiAlert.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
-
-    <!--Codigo de google apis para gmail y google pleace-->
+    <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXkefvtdTtmbIvWHMc-_v-dBtaOJuUki8&libraries=places"></script>
-    <!--Fin de google-->
-    <script src="~/js/GoogleAutoCompletado.js" />
+    <script src="~/js/GoogleAutoCompletado.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.5/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.5/sweetalert2.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

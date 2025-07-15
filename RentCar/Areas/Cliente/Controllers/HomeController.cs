@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentCar.Data;
+using RentCar.Data.Data.Repository;
 using RentCar.Models;
 using SendEmail.Services;
 using System.Diagnostics;
@@ -16,11 +17,14 @@ namespace RentCar.Areas.Cliente.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly EmailService _emailService;
+        private readonly EmailServiceContactos _emailServiceContactos;
+        
 
-        public HomeController(ApplicationDbContext context, EmailService emailService)
+        public HomeController(ApplicationDbContext context, EmailService emailService, EmailServiceContactos emailServiceContactos)
         {
             _context = context;
             _emailService = emailService;
+            _emailServiceContactos = emailServiceContactos;
         }
 
 
@@ -147,9 +151,47 @@ namespace RentCar.Areas.Cliente.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> MensajeDeContacto(MensajeDeContactoModels model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Contactos", model);
+            }
+
+            try
+            {
+
+                await _emailServiceContactos.SendEmailContacto(model);
 
 
-        public IActionResult Privacy() => View();
+
+                var mensajeCont = new MensajeDeContactoModels
+                {
+                    Nombre = model.Nombre,
+                    Correo = model.Correo, 
+                    Asunto = model.Asunto,
+                    Mensaje = model.Mensaje,
+                   
+                };
+
+                
+                _context.mensajeDeContactoModels.Add(mensajeCont);
+                await _context.SaveChangesAsync();
+
+                TempData["AlquilerConfirmado"] = "true";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Ocurrió un error al procesar la solicitud: " + ex.Message;
+                return View("Error");
+            }
+        }
+
+
+
+    public IActionResult Privacy() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

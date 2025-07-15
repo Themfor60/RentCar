@@ -28,6 +28,12 @@
             <p><strong>Dirrecion:</strong> @Model.CiudadCodigo</p>
             <p><strong>Fecha de Recogida:</strong> @Model.FechaHoraRecogidaCompleta</p>
             <p><strong>Fecha de Entrega:</strong> @Model.FechaHoraEntregaCompleta</p>
+
+            
+            <a asp-action="FacturaCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@Model.IdReserva" class="btn btn-success">
+                <i class="bi bi-receipt-cutoff"></i> Facturar
+            </a>
+
         </div>
     </div>
 
@@ -37,4 +43,5 @@
             <i class="bi bi-arrow-left"></i> Volver
         </a>
     </div>
+
 </div>
