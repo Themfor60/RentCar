@@ -101,40 +101,39 @@ namespace RentCar.Areas.Admin.Controllers
         }
 
 
-        //controlador para editar los cliente dell dashboar 
-        //[Authorize(Roles = "SuperUsuario")]
-        [HttpGet]
-        public async Task<IActionResult> EditarCliente(int id)
-        {
-            var cliente = await _context.reservaRequests
-                                        .Include(r => r.Vehiculo)
-                                        .FirstOrDefaultAsync(r => r.IdReserva == id);
+        ////controlador para editar los cliente dell dashboar 
+        ////[Authorize(Roles = "SuperUsuario")]
+        //[HttpGet]
+        //public async Task<IActionResult> EditarCliente(int id)
+        //{
+        //    var cliente = await _context.reservaRequests
+        //                                .Include(r => r.Vehiculo)
+        //                                .FirstOrDefaultAsync(r => r.IdReserva == id);
 
-            if (cliente == null)
-            {
-                return NotFound();
-            }
+        //    if (cliente == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(cliente);
-        }
+        //    return View(cliente);
+        //}
 
 
-        //[Authorize(Roles = "SuperUsuario")]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditarCliente(ReservaRequest reservaRequest)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.reservaRequests.Update(reservaRequest);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Clientes");
-            }
+        ////[Authorize(Roles = "SuperUsuario")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> EditarCliente(ReservaRequest reservaRequest)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.reservaRequests.Update(reservaRequest);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Clientes");
+        //    }
 
-           
+        //    return View("EditarCliente", reservaRequest);
+        //}
 
-            return View("EditarCliente", reservaRequest);
-        }
 
 
         //Control para ver el detalle

@@ -95,9 +95,9 @@
                                         </a>
                                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("SuperUsuario"))
                                         {
-                                            <a asp-action="EditarCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-warning me-1" title="Editar Reserva">
+                                           @*  <a asp-action="EditarCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-warning me-1" title="Editar Reserva">
                                                 <i class="bi bi-pencil-square"></i>
-                                            </a>
+                                            </a> *@
                                             <a asp-action="BorrarCliente" asp-controller="Cliente" asp-area="Admin" asp-route-id="@reserva.IdReserva" class="btn btn-sm btn-danger" title="Eliminar Reserva">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>
