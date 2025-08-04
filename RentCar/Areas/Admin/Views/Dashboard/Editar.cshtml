@@ -13,7 +13,14 @@
         </div>
         <div class="card-body">
             <form asp-action="Editar" method="post">
+                @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Foto" />
+
+                <div class="mb-3">
+                    <label class="form-label">Imagen Actual</label><br />
+                    <img src="~/uploads/@Model.Foto" width="200" class="img-thumbnail" />
+                </div>
 
                 <div class="mb-3">
                     <label asp-for="Marca" class="form-label">Marca</label>
@@ -24,11 +31,11 @@
                     <label asp-for="Modelo" class="form-label">Modelo</label>
                     <input asp-for="Modelo" class="form-control" />
                 </div>
+
                 <div class="mb-3">
                     <label asp-for="Transmision" class="form-label">Transmisión</label>
                     <input asp-for="Transmision" class="form-control" />
                 </div>
-
 
                 <div class="mb-3">
                     <label asp-for="CapacidadMaletero" class="form-label">Capacidad de Maletero</label>
@@ -37,7 +44,7 @@
 
                 <div class="mb-3">
                     <label asp-for="CapacidadPersonas" class="form-label">Capacidad de Personas</label>
-                    <input asp-for="CapacidadPersonas" class="form-control" />
+                    <input asp-for="CapacidadPersonas" type="number" class="form-control" />
                 </div>
 
                 <div class="mb-3">

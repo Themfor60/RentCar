@@ -104,8 +104,24 @@ namespace RentCar.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.vehiculos.Update(vehiculo);
+                var vehiculoDB = _context.vehiculos.FirstOrDefault(v => v.Id == vehiculo.Id);
+
+                if (vehiculoDB == null)
+                    return NotFound();
+
+               
+                vehiculoDB.Marca = vehiculo.Marca;
+                vehiculoDB.Modelo = vehiculo.Modelo;
+                vehiculoDB.Transmision = vehiculo.Transmision;
+                vehiculoDB.CapacidadMaletero = vehiculo.CapacidadMaletero;
+                vehiculoDB.CapacidadPersonas = vehiculo.CapacidadPersonas;
+                vehiculoDB.Precio = vehiculo.Precio;
+
+                
+
+                _context.vehiculos.Update(vehiculoDB);
                 _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
